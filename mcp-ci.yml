@@ -1,0 +1,13 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4  # 建议升级到v4（当前v3.5.0已过时）
+      - uses: actions/setup-node@v3.7.0
+        with:
+          node-version: '20'
+          cache: 'npm'  # 启用npm缓存加速依赖安装
+      - run: npm ci  # 替代npm install，严格锁定依赖版本
+      - run: npm run build
+      - name: Run Tests  # 新增测试阶段
+        run: npm test
